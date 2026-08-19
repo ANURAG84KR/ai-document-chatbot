@@ -467,6 +467,7 @@ Retrieval-Augmented Generation (RAG)
 AI application architecture
 Backend security
 Production deployment
+
 License
 
 This project is currently intended as a portfolio and learning project.
