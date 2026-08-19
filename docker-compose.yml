@@ -1,0 +1,32 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: ai-document-chatbot-db
+
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    image: ai-document-chatbot:latest
+    container_name: ai-document-chatbot-container
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./media:/app/media
+
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
