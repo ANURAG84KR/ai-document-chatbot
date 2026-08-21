@@ -4,7 +4,6 @@ from ai.services.embeddings import create_embeddings
 
 from ai.services.vector_store import (
     create_faiss_index,
-    get_faiss_index_path,
     save_faiss_index,
     delete_faiss_index,
 )
@@ -34,9 +33,7 @@ def process_document(document):
 
         index = create_faiss_index(embeddings)
 
-        file_path = get_faiss_index_path(document)
-
-        save_faiss_index(index, file_path)
+        save_faiss_index(index, document)
 
         return chunks
 

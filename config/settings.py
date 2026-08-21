@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_filters',
     "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
+    'storages',
 
     # Local apps
     
@@ -178,6 +179,31 @@ AUTH_USER_MODEL ='accounts.User'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# AWS S3 Storage
+USE_S3 = os.getenv("USE_S3", "False").lower() == "true"
+
+if USE_S3:
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
