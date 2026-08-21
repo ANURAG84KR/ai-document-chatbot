@@ -13,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    image: ai-document-chatbot:latest
+    image: ai-document-chatbot:production
     container_name: ai-document-chatbot-container
 
     env_file:
